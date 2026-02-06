@@ -1,1 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para Ti ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: white;
+      text-align: center;
+    }
+    section {
+      min-height: 100vh;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+    }
+    section.active {
+      display: flex;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      background: white;
+      color: #ff4f81;
+      cursor: pointer;
+    }
+    img {
+      max-width: 90%;
+      border-radius: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<section class="active" id="pantalla1">
+  <h1>Hola amor ❤️</h1>
+  <p>Tengo algo especial para ti</p>
+  <button onclick="mostrar('pantalla2')">Ver 💕</button>
+</section>
+
+<section id="pantalla2">
+  <h1>Esto es para ti</h1>
+  <p>Gracias por estar en mi vida 🥰</p>
+  <button onclick="mostrar('pantalla3')">Siguiente 💌</button>
+</section>
+
+<section id="pantalla3">
+  <h1>¿Quieres ser mi San Valentín? 💘</h1>
+  <button onclick="alert('Te amo ❤️')">Sí 💖</button>
+</section>
+
+<script>
+  function mostrar(id) {
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
 
