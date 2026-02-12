@@ -5,12 +5,14 @@
   <title>Marisol y Jesus ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- ESTILOS -->
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      /* AQUÍ ESTÁ EL CAMBIO DE LA FOTO */
+      /* Asegúrate de que tu foto se llame 'fondo.jpg' o cambia el nombre aquí */
+      background: url('collage foto.jpg') no-repeat center center fixed; 
+      background-size: cover; /* Esto hace que la foto cubra toda la pantalla */
       color: white;
       text-align: center;
     }
@@ -21,51 +23,90 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      padding: 20px;
+    }
+
+    /* Esto crea un recuadro oscuro transparente para que se lea el texto sobre la foto */
+    .contenido-box {
+      background: rgba(0, 0, 0, 0.6); /* Fondo negro al 60% de transparencia */
       padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(5px); /* Efecto borroso elegante detrás del texto */
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      max-width: 90%;
     }
 
     section.active {
       display: flex;
     }
 
+    h1 {
+      text-shadow: 2px 2px 4px #000000; /* Sombra al texto para que resalte */
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin-bottom: 30px;
+    }
+
     button {
-      margin: 15px;
-      padding: 16px 32px;
-      font-size: 1.2em;
+      margin: 10px;
+      padding: 15px 30px;
+      font-size: 1.1em;
       border: none;
-      border-radius: 40px;
-      background: white;
-      color: #ff4f81;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #d6336c; /* Color rosa oscuro para las letras del botón */
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
+    button:hover {
+      transform: scale(1.05);
+      background: #ffffff;
+    }
+
+    /* Estilos para cuando agregues contenido dentro */
     video, img {
-      max-width: 80%;
-      border-radius: 20px;
-      margin-top: 20px;
-    }
-
-    .galeria {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .recuerdo, .nota {
-      background: rgba(255,255,255,0.25);
-      padding: 15px;
-      border-radius: 20px;
+      max-width: 100%;
+      border-radius: 15px;
+      margin-top: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
   </style>
 </head>
 
 <body>
-<section class="active" id="inicio">
-  <h1>Un poco de nuestra historia mi sol hermosa ❤️</h1>
-  <p>Hecho con amor, para ti mi reina 👑</p>
 
-  <button onclick="mostrar('videos')">🎥 Videos</button>
-  <button onclick="mostrar('recuerdos')">📸 Recuerdos</button>
-  <button onclick="mostrar('notas')">📝 Notas</button>
-  <button onclick="mostrar('final')">💖 Final</button>
+<section class="active" id="inicio">
+  <div class="contenido-box">
+    <h1>Un poco de nuestra historia mi sol hermosa ❤️</h1>
+    <p>Hecho con amor, para ti mi reina 👑</p>
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+      <button onclick="mostrar('videos')">🎥 Videos</button>
+      <button onclick="mostrar('recuerdos')">📸 Recuerdos</button>
+      <button onclick="mostrar('notas')">📝 Notas</button>
+      <button onclick="mostrar('final')">💖 Final</button>
+    </div>
+  </div>
 </section>
+
+<script>
+    // Script simple para cambiar entre secciones
+    function mostrar(idSeccion) {
+        // Ocultar todas las secciones
+        const secciones = document.querySelectorAll('section');
+        secciones.forEach(sec => sec.classList.remove('active'));
+        
+        // Aquí deberías tener las otras secciones creadas con sus IDs
+        // Por ahora, como solo me diste el inicio, esto es solo demostrativo.
+        alert("Aquí iría a la sección: " + idSeccion + ". (Recuerda agregar el código HTML de las otras partes)");
+    }
+</script>
+
+</body>
+</html>
