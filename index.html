@@ -1,21 +1,280 @@
-function iniciarExperiencia() {
-      var audio = document.getElementById("musica");
-      
-      // Intento forzado de reproducir
-      var promesa = audio.play();
-      
-      if (promesa !== undefined) {
-        promesa.then(_ => {
-          // La reproducción automática comenzó exitosamente
-          console.log("Audio reproduciendo");
-        }).catch(error => {
-          // Si falla, mostramos un aviso
-          alert("El navegador bloqueó el audio o no encuentra el archivo 'cancion.mp3'. Intenta presionar el botón de la nota musical 🎵 arriba a la derecha.");
-        });
-      }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para Marisol ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
-      // Cambiar de pantalla
+  <style>
+    /* --- ESTILOS GENERALES --- */
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      /* FONDO */
+      background: url('fondo.jpg') no-repeat center center fixed; 
+      background-size: cover;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    /* Capa oscura de fondo */
+    .overlay {
+      background: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Dancing Script', cursive;
+      color: #ff9eb5;
+      text-shadow: 2px 2px 4px #000;
+    }
+    
+    h1 { font-size: 3em; margin-bottom: 10px; }
+    h2 { font-size: 2.2em; margin-bottom: 20px; }
+
+    /* SECCIONES */
+    section {
+      display: none; /* Oculto por defecto */
+      min-height: 100vh;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 20px 90px 20px; /* Espacio abajo para el menú */
+      animation: fadeIn 1.5s;
+    }
+
+    section.active {
+      display: flex; /* Se muestra cuando tiene la clase active */
+    }
+
+    /* TARJETAS (Glassmorphism) */
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 90%;
+      width: 400px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      margin-bottom: 25px;
+    }
+
+    /* IMAGENES Y VIDEOS */
+    img, video {
+      width: 100%;
+      border-radius: 15px;
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      object-fit: cover;
+    }
+
+    /* BOTONES DE NAVEGACIÓN (ABAJO) */
+    .nav-buttons {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.9);
+      padding: 10px 25px;
+      border-radius: 50px;
+      display: flex;
+      gap: 20px;
+      z-index: 100;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .nav-btn:hover { transform: scale(1.2); }
+
+    /* BOTÓN INICIO GIGANTE */
+    button.start-btn {
+      padding: 15px 40px;
+      font-size: 1.5em;
+      background: #ff477e;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 20px #ff477e;
+      animation: pulse 2s infinite;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    /* BOTÓN MÚSICA ESQUINA */
+    .music-control {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 1000;
+      border: 1px solid white;
+      font-size: 20px;
+    }
+
+    /* TEXTO MÁQUINA DE ESCRIBIR */
+    #texto-maquina {
+      text-align: left;
+      line-height: 1.6;
+      font-size: 1.1em;
+      min-height: 100px;
+    }
+
+    /* ANIMACIONES */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+  </style>
+</head>
+<body>
+
+  <div class="overlay"></div>
+
+  <audio id="musica" loop>
+    <source src="canción.mp3" type="audio/mpeg">
+  </audio>
+  
+  <div class="music-control" onclick="toggleMusic()" title="Pausar/Reproducir">🎵</div>
+
+  <section id="sec-intro" class="active">
+    <h1>¡Hola Marisol! ❤️</h1>
+    <p>He preparado un pequeño viaje por nuestros recuerdos.</p>
+    <p>Sube el volumen y presiona el botón.</p>
+    <button class="start-btn" onclick="iniciarExperiencia()">COMENZAR</button>
+  </section>
+
+  <section id="sec-galeria">
+    <h2>Nuestros Momentos ✨</h2>
+    
+    <div class="card">
+      <p>Recuerdo N° 1</p>
+      <video controls playsinline webkit-playsinline>
+        <source src="video1.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
+      </video>
+    </div>
+
+    <div class="card">
+      <p>Recuerdo N° 2</p>
+      <video controls playsinline webkit-playsinline>
+        <source src="video2.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
+      </video>
+    </div>
+  </section>
+
+  <section id="sec-cartas">
+    <h2>Lo que siento por ti 💌</h2>
+    <div class="card">
+      <p id="texto-maquina"></p> 
+    </div>
+  </section>
+
+  <section id="sec-final">
+    <h2>Siempre Juntos 🥑</h2>
+    <div class="card">
+      <img src="palta.jpg" alt="Palta Guitarrista">
+      <p style="margin-top: 15px; font-size: 1.2em;">"Quiero tocar la música de la vida contigo..."</p>
+      <h3>¡Te Amo!</h3>
+    </div>
+  </section>
+
+  <div class="nav-buttons" id="menu" style="display: none;">
+    <button class="nav-btn" onclick="irA('sec-galeria')">🎬</button>
+    <button class="nav-btn" onclick="irA('sec-cartas')">💌</button>
+    <button class="nav-btn" onclick="irA('sec-final')">🥑</button>
+  </div>
+
+  <script>
+    // --- EDITA TU CARTA AQUÍ ---
+    // Usa <br> para saltar de línea
+    const cartaAmor = "Mi amor hermosa, cada momento a tu lado es un tesoro.<br><br>He creado estos videos pensando en nosotros, pero la realidad contigo supera cualquier sueño o inteligencia artificial.<br><br>Gracias por hacerme tan feliz. Te amo muchísimo Marisol.";
+
+    // --- LÓGICA DEL PROGRAMA ---
+    let i = 0;
+    let escribiendo = false;
+
+    function iniciarExperiencia() {
+      // Intentar reproducir música
+      const audio = document.getElementById("musica");
+      audio.volume = 0.5; // Volumen al 50%
+      audio.play().catch(function(error) {
+        console.log("Audio bloqueado automáticamente: " + error);
+        alert("¡Hola! Si no escuchas la música, dale clic a la nota musical 🎵 arriba a la derecha.");
+      });
+
+      // Ir a la siguiente sección
       irA('sec-galeria');
       // Mostrar menú
       document.getElementById('menu').style.display = 'flex';
     }
+
+    function toggleMusic() {
+      const audio = document.getElementById("musica");
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+
+    function irA(idSeccion) {
+      // Ocultar todas las secciones
+      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+      // Mostrar la deseada
+      document.getElementById(idSeccion).classList.add('active');
+      // Scroll arriba
+      window.scrollTo(0, 0);
+
+      // Efecto de carta
+      if(idSeccion === 'sec-cartas') {
+        if(!escribiendo) {
+           document.getElementById("texto-maquina").innerHTML = "";
+           i = 0;
+           escribiendo = true;
+           typeWriter();
+        }
+      }
+    }
+
+    function typeWriter() {
+      if (i < cartaAmor.length) {
+        // Si encontramos <br>, lo agregamos como HTML, si no, como texto
+        if(cartaAmor.substring(i, i+4) === "<br>") {
+          document.getElementById("texto-maquina").innerHTML += "<br>";
+          i += 4;
+        } else {
+          document.getElementById("texto-maquina").innerHTML += cartaAmor.charAt(i);
+          i++;
+        }
+        setTimeout(typeWriter, 40); // Velocidad de escritura
+      }
+    }
+  </script>
+
+</body>
+</html>
