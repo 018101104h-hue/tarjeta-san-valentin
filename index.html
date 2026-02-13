@@ -20,7 +20,7 @@
       overflow-x: hidden;
     }
 
-    /* Capa oscura de fondo para leer mejor */
+    /* Capa oscura de fondo */
     .overlay {
       background: rgba(0, 0, 0, 0.6);
       min-height: 100vh;
@@ -66,16 +66,23 @@
       max-width: 90%;
       width: 400px;
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      margin-bottom: 25px;
+      margin-bottom: 30px; /* Separación entre tarjetas */
     }
 
     /* IMAGENES Y VIDEOS */
-    img, video, iframe {
+    img, video {
       width: 100%;
       border-radius: 15px;
       margin-top: 10px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.5);
       object-fit: cover;
+    }
+
+    /* DESCRIPCION VIDEO */
+    .desc-video {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+        font-style: italic;
     }
 
     /* BOTONES DE NAVEGACIÓN (ABAJO) */
@@ -155,10 +162,10 @@
   <div class="overlay"></div>
 
   <audio id="musica" loop>
-    <source src="cancionmp3-1.mp3" type="audio/mpeg">
+    <source src="cancion.mp3" type="audio/mpeg">
   </audio>
   
-  <div class="music-control" onclick="toggleMusic()" title="Pausar/Reproducir">🎵</div>
+  <div class="music-control" onclick="toggleMusic()">🎵</div>
 
   <section id="sec-intro" class="active">
     <h1>¡Hola Marisol! ❤️</h1>
@@ -170,21 +177,27 @@
   <section id="sec-galeria">
     <h2>Nuestros Momentos ✨</h2>
     
-   <div class="card">
-      <p>Y este recuerdo inolvidable...</p>
-      
+    <div class="card">
+      <p class="desc-video">"Un recuerdo vergonzoso del que te hable jajajaja"</p>
       <video width="100%" controls playsinline webkit-playsinline>
-        <source src="videocarro.mp4" type="video/mp4">
-        <p>Tu navegador no puede reproducir este video. (Prueba subirlo a YouTube si falla).</p>
+        <source src="videoconcierto.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
       </video>
     </div>
 
     <div class="card">
-      <p>Y este recuerdo inolvidable...</p>
-      
+      <p class="desc-video">"No tenemos fotos de este día pero lo tengo siempre presente en mi memoria. Mi niña bonita"</p>
       <video width="100%" controls playsinline webkit-playsinline>
-        <source src="videoabrazo.mp4" type="video/mp4">
-        <p>Tu navegador no puede reproducir este video. (Prueba subirlo a YouTube si falla).</p>
+        <source src="videocarro.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
+      </video>
+    </div>
+
+    <div class="card">
+      <p class="desc-video">"Amorcito tampoco tenemos fotos de este día :C pero recuerdo cada detalle y es algo que nunca olvidaré. Te amo. Soy el hombre más afortunado del mundo, encontré el amor en ti"</p>
+      <video width="100%" controls playsinline webkit-playsinline>
+        <source src="videoenamorados.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
       </video>
     </div>
   </section>
@@ -213,7 +226,6 @@
 
   <script>
     // --- EDITA TU CARTA AQUÍ ---
-    // Usa <br> para saltar de línea
     const cartaAmor = "Mi amor hermosa, cada momento a tu lado es un tesoro.<br><br>He creado estos videos pensando en nosotros, pero la realidad contigo supera cualquier sueño o inteligencia artificial.<br><br>Gracias por hacerme tan feliz. Te amo muchísimo Marisol.";
 
     // --- LÓGICA DEL PROGRAMA ---
@@ -223,9 +235,9 @@
     function iniciarExperiencia() {
       // Intentar reproducir música
       const audio = document.getElementById("musica");
-      audio.volume = 0.5; // Volumen al 50%
+      audio.volume = 0.5;
       audio.play().catch(function(error) {
-        console.log("Audio bloqueado automáticamente: " + error);
+        console.log("Audio bloqueado: " + error);
         alert("¡Hola! Si no escuchas la música, dale clic a la nota musical 🎵 arriba a la derecha.");
       });
 
@@ -237,22 +249,15 @@
 
     function toggleMusic() {
       const audio = document.getElementById("musica");
-      if (audio.paused) {
-        audio.play();
-      } else {
-        audio.pause();
-      }
+      if (audio.paused) audio.play();
+      else audio.pause();
     }
 
     function irA(idSeccion) {
-      // Ocultar todas las secciones
       document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-      // Mostrar la deseada
       document.getElementById(idSeccion).classList.add('active');
-      // Scroll arriba
       window.scrollTo(0, 0);
 
-      // Efecto de carta
       if(idSeccion === 'sec-cartas') {
         if(!escribiendo) {
            document.getElementById("texto-maquina").innerHTML = "";
@@ -265,7 +270,6 @@
 
     function typeWriter() {
       if (i < cartaAmor.length) {
-        // Si encontramos <br>, lo agregamos como HTML, si no, como texto
         if(cartaAmor.substring(i, i+4) === "<br>") {
           document.getElementById("texto-maquina").innerHTML += "<br>";
           i += 4;
@@ -273,7 +277,7 @@
           document.getElementById("texto-maquina").innerHTML += cartaAmor.charAt(i);
           i++;
         }
-        setTimeout(typeWriter, 40); // Velocidad de escritura
+        setTimeout(typeWriter, 40);
       }
     }
   </script>
