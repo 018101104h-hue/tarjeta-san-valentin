@@ -148,8 +148,9 @@
     #texto-maquina {
       text-align: left;
       line-height: 1.6;
-      font-size: 1.1em;
+      font-size: 1em; /* Un poco más pequeño para que quepa todo */
       min-height: 100px;
+      white-space: pre-wrap; /* Respeta los espacios */
     }
 
     /* ANIMACIONES */
@@ -225,8 +226,8 @@
   </div>
 
   <script>
-    // --- EDITA TU CARTA AQUÍ ---
-    const cartaAmor = "Mi amor hermosa, cada momento a tu lado es un tesoro.<br><br>He creado estos videos pensando en nosotros, pero la realidad contigo supera cualquier sueño o inteligencia artificial.<br><br>Gracias por hacerme tan feliz. Te amo muchísimo Marisol.";
+    // --- TU CARTA HERMOSA ---
+    const cartaAmor = "Amor,<br>¿Recuerdas cuando te dije:<br>“A veces las cosas no se anuncian,<br>simplemente empiezan a pasar.<br>Y sin darme cuenta,<br>fuiste ocupando un lugar<br>que no tenía nombre<br>hasta que apareciste tú.”?<br><br>Hoy vuelvo a esas palabras y me doy cuenta de que nunca fueron tan reales como ahora. Porque lo nuestro no empezó con fuegos artificiales ni con promesas exageradas… empezó despacio, bonito, sincero. Empezó con miradas que duraban un poquito más, con conversaciones que no queríamos que terminaran, con esa sensación de sentirme en casa cuando estaba contigo.<br><br>Y también te dije un día:<br>“Y si hoy te digo todo esto, es porque me siento en paz, tranquilo, y seguro de que eres tú.”<br><br>Y sigo sintiendo exactamente lo mismo. Paz cuando estoy a tu lado. Tranquilidad cuando tomo tu mano. Seguridad cuando pienso en el futuro y te veo ahí, caminando conmigo. No es solo emoción… es certeza. Es saber que lo que siento tiene raíces profundas.<br><br>Y cómo olvidar ese 18 de diciembre… el día que estaba más nervioso que nunca. El día en que el corazón me latía tan fuerte que pensé que lo ibas a escuchar. Ese momento en el que te dije:<br>“Marisol, llegó el día, quizá uno de los más esperados en muchísimo tiempo.<br>La verdad es que el deseo más grande de mi corazón ahora es que puedas caminar conmigo en lo que viene.<br>Por eso hoy, con todo lo que siento, te digo que te quiero como mi enamorada y te invito a estar conmigo.”<br><br>Ese día no solo te pedí que fueras mi enamorada… ese día te entregué una parte muy sincera de mí. Y desde entonces, cada día contigo ha sido una confirmación de que tomé la mejor decisión.<br><br>Hoy, 14 de febrero, no quiero decirte algo nuevo. Quiero recordarte lo que ya sabes, pero que nunca me cansaré de repetir: te amo con calma, con intención, con orgullo. Amo tu sonrisa, tu forma de mirar, tu manera de abrazar. Amo lo que somos cuando estamos juntos.<br><br>Gracias por caminar conmigo. Gracias por elegirme. Gracias por ser tú.<br>Si volviera a ese 18 de diciembre, con los mismos nervios y el mismo corazón acelerado… volvería a elegirte mil veces más.<br><br>Con todo mi amor,<br>Siempre tuyo. Tu pollito Jesús.";
 
     // --- LÓGICA DEL PROGRAMA ---
     let i = 0;
@@ -277,7 +278,8 @@
           document.getElementById("texto-maquina").innerHTML += cartaAmor.charAt(i);
           i++;
         }
-        setTimeout(typeWriter, 40);
+        // He ajustado la velocidad a 30ms para que no sea tan lento leer todo el texto
+        setTimeout(typeWriter, 30); 
       }
     }
   </script>
