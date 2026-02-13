@@ -230,9 +230,9 @@
   </section>
 
   <section id="sec-final">
-    <h2>Siempre Juntos 🥑</h2>
+    <h2>Siempre Juntos ∞</h2>
     <div class="card">
-      <img src="palta.jpg" alt="Palta Guitarrista">
+      <img src="infinito.jpg" alt="Amor Infinito">
       <p style="margin-top: 15px; font-size: 1.2em;">"Quiero tocar la música de la vida contigo..."</p>
       <h3>¡Te Amo!</h3>
     </div>
@@ -242,7 +242,7 @@
     <button class="nav-btn" onclick="irA('sec-galeria')" title="Videos">🎬</button>
     <button class="nav-btn" onclick="irA('sec-musica')" title="Música">🎵</button>
     <button class="nav-btn" onclick="irA('sec-cartas')" title="Carta">💌</button>
-    <button class="nav-btn" onclick="irA('sec-final')" title="Final">🥑</button>
+    <button class="nav-btn" onclick="irA('sec-final')" title="Final">♾️</button>
   </div>
 
   <script>
@@ -253,7 +253,6 @@
     let escribiendo = false;
 
     // --- SISTEMA ANTI-RUIDO ---
-    // Detecta cuando algo (video o audio) se reproduce y pausa lo demás
     const allMedia = document.querySelectorAll('.media-player');
 
     allMedia.forEach(media => {
@@ -273,7 +272,6 @@
     }
 
     function irA(idSeccion) {
-      // Pausar todo al cambiar de sección
       allMedia.forEach(m => m.pause());
 
       document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
