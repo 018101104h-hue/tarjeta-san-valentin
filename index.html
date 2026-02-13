@@ -18,9 +18,9 @@
       color: white;
       text-align: center;
       overflow-x: hidden;
+      padding-bottom: 90px; /* Espacio para el menú */
     }
 
-    /* Capa oscura de fondo */
     .overlay {
       background: rgba(0, 0, 0, 0.6);
       min-height: 100vh;
@@ -39,23 +39,22 @@
     
     h1 { font-size: 3em; margin-bottom: 10px; }
     h2 { font-size: 2.2em; margin-bottom: 20px; }
+    h3 { font-size: 1.5em; color: #fff; margin-bottom: 5px; }
 
     /* SECCIONES */
     section {
-      display: none; /* Oculto por defecto */
+      display: none;
       min-height: 100vh;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 20px 20px 90px 20px; /* Espacio abajo para el menú */
-      animation: fadeIn 1.5s;
+      padding: 20px;
+      animation: fadeIn 1.0s;
     }
 
-    section.active {
-      display: flex; /* Se muestra cuando tiene la clase active */
-    }
+    section.active { display: flex; }
 
-    /* TARJETAS (Glassmorphism) */
+    /* TARJETAS */
     .card {
       background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(8px);
@@ -66,10 +65,9 @@
       max-width: 90%;
       width: 400px;
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      margin-bottom: 30px; /* Separación entre tarjetas */
+      margin-bottom: 30px;
     }
 
-    /* IMAGENES Y VIDEOS */
     img, video {
       width: 100%;
       border-radius: 15px;
@@ -78,11 +76,20 @@
       object-fit: cover;
     }
 
-    /* DESCRIPCION VIDEO */
-    .desc-video {
+    /* REPRODUCTOR DE AUDIO PERSONALIZADO */
+    audio {
+      width: 100%;
+      margin-top: 15px;
+      border-radius: 30px;
+      height: 40px;
+    }
+
+    .desc-texto {
         font-size: 1.1em;
         margin-bottom: 10px;
         font-style: italic;
+        line-height: 1.5;
+        color: #f0f0f0;
     }
 
     /* BOTONES DE NAVEGACIÓN (ABAJO) */
@@ -91,8 +98,8 @@
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(255,255,255,0.9);
-      padding: 10px 25px;
+      background: rgba(255,255,255,0.95);
+      padding: 12px 25px;
       border-radius: 50px;
       display: flex;
       gap: 20px;
@@ -103,14 +110,12 @@
     .nav-btn {
       background: none;
       border: none;
-      font-size: 28px;
+      font-size: 26px;
       cursor: pointer;
       transition: transform 0.2s;
     }
-
     .nav-btn:hover { transform: scale(1.2); }
 
-    /* BOTÓN INICIO GIGANTE */
     button.start-btn {
       padding: 15px 40px;
       font-size: 1.5em;
@@ -125,35 +130,14 @@
       margin-top: 20px;
     }
 
-    /* BOTÓN MÚSICA ESQUINA */
-    .music-control {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: rgba(0,0,0,0.5);
-      color: white;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      z-index: 1000;
-      border: 1px solid white;
-      font-size: 20px;
-    }
-
-    /* TEXTO MÁQUINA DE ESCRIBIR */
     #texto-maquina {
       text-align: left;
       line-height: 1.6;
-      font-size: 1em; /* Un poco más pequeño para que quepa todo */
+      font-size: 1em;
       min-height: 100px;
-      white-space: pre-wrap; /* Respeta los espacios */
+      white-space: pre-wrap;
     }
 
-    /* ANIMACIONES */
     @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
   </style>
@@ -161,12 +145,6 @@
 <body>
 
   <div class="overlay"></div>
-
-  <audio id="musica" loop>
-    <source src="cancion.mp3" type="audio/mpeg">
-  </audio>
-  
-  <div class="music-control" onclick="toggleMusic()">🎵</div>
 
   <section id="sec-intro" class="active">
     <h1>¡Hola Marisol! ❤️</h1>
@@ -179,27 +157,68 @@
     <h2>Nuestros Momentos ✨</h2>
     
     <div class="card">
-      <p class="desc-video">"Un recuerdo vergonzoso del que te hable jajajaja"</p>
-      <video width="100%" controls playsinline webkit-playsinline>
+      <p class="desc-texto">"Un recuerdo vergonzoso del que te hablé jajajaja"</p>
+      <video width="100%" controls playsinline webkit-playsinline class="media-player">
         <source src="videoabrazo.mp4" type="video/mp4">
-        Tu navegador no soporta el video.
       </video>
     </div>
 
     <div class="card">
-      <p class="desc-video">"No tenemos fotos de este día pero lo tengo siempre presente en mi memoria. Mi niña bonita"</p>
-      <video width="100%" controls playsinline webkit-playsinline>
+      <p class="desc-texto">"No tenemos fotos de este día pero lo tengo siempre presente en mi memoria. Mi niña bonita"</p>
+      <video width="100%" controls playsinline webkit-playsinline class="media-player">
         <source src="videocarro.mp4" type="video/mp4">
-        Tu navegador no soporta el video.
       </video>
     </div>
 
     <div class="card">
-      <p class="desc-video">"Amorcito tampoco tenemos fotos de este día :C pero recuerdo cada detalle y es algo que nunca olvidaré. Te amo. Soy el hombre más afortunado del mundo, encontré el amor en ti"</p>
-      <video width="100%" controls playsinline webkit-playsinline>
-        <source src="videoenamorados.mp4" type="video/mp4">
-        Tu navegador no soporta el video.
+      <p class="desc-texto">"Bebé, recuerdo mis nervios en ese momento... tenía muchas ganas de hacerlo y juntos vimos que era el momento perfecto. Y ahí fue nuestro primer beso, el beso inolvidable que nos dimos, el beso que quisiera que dure toda la vida."</p>
+      <video width="100%" controls playsinline webkit-playsinline class="media-player">
+        <source src="videobeso.mp4" type="video/mp4">
       </video>
+    </div>
+
+    <div class="card">
+      <p class="desc-texto">"Amorcito tampoco tenemos fotos de este día :C pero recuerdo cada detalle y es algo que nunca olvidaré. Te amo. Soy el hombre más afortunado del mundo, encontré el amor en ti"</p>
+      <video width="100%" controls playsinline webkit-playsinline class="media-player">
+        <source src="videoenamorados.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+  <section id="sec-musica">
+    <h2>Nuestra Banda Sonora 🎵</h2>
+    <p style="margin-bottom: 20px;">Cada canción cuenta nuestra historia...</p>
+
+    <div class="card">
+      <h3>Visitantes</h3>
+      <p class="desc-texto">Esta canción me recuerda a cómo llegaste a mi vida sin avisar, como una visita inesperada que terminó quedándose y quiero que sea para siempre. Y cómo poco a poco te convertiste en mi lugar favorito, en la persona que cambió mis días sin hacer ruido.</p>
+      <audio controls class="media-player">
+        <source src="cancionvisitantes.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="card">
+      <h3>Birdie</h3>
+      <p class="desc-texto">Cuando escucho esta canción recuerdo el momento lindo que tuvimos en el cine amorcito, la primera vez que nos dijimos "te amo". Y te dije que tenía una canción especial reservada para el amor de mi vida, y esa canción es esta. Al momento de decirte te amo supe que tenía que dedicártela.</p>
+      <audio controls class="media-player">
+        <source src="cancionbirdie.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="card">
+      <h3>Pensamientos</h3>
+      <p class="desc-texto">Amorcito, esta canción aparte de recordarme a nuestro viaje y todo lo lindo que vivimos en Arequipa, me hace recordar lo presente que estás siempre en mi mente. Eres mi pensamiento favorito, ese lugar en mi memoria que me da paz.</p>
+      <audio controls class="media-player">
+        <source src="cancionpensamientos.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="card">
+      <h3>Nunca lo olvides</h3>
+      <p class="desc-texto">Esta canción me gusta desde la primera vez que la escuché, gracias a ti, la mayor fan de Airbag. Pero poco a poco fue tomando sentido y espero algún día poder cantarla en nuestra boda. <br><br>Y te hago recordar que nunca olvides lo que sentimos, nunca olvides el 18 de diciembre, nunca olvides cómo temblaba mi voz cuando te dije que quería que caminaras conmigo. Nunca olvides que eres mi paz, mi certeza y mi amor más sincero. Y pase lo que pase, nunca olvides que siempre voy a elegirte.</p>
+      <audio controls class="media-player">
+        <source src="cancionnuncaloolvides.mp3" type="audio/mpeg">
+      </audio>
     </div>
   </section>
 
@@ -220,45 +239,48 @@
   </section>
 
   <div class="nav-buttons" id="menu" style="display: none;">
-    <button class="nav-btn" onclick="irA('sec-galeria')">🎬</button>
-    <button class="nav-btn" onclick="irA('sec-cartas')">💌</button>
-    <button class="nav-btn" onclick="irA('sec-final')">🥑</button>
+    <button class="nav-btn" onclick="irA('sec-galeria')" title="Videos">🎬</button>
+    <button class="nav-btn" onclick="irA('sec-musica')" title="Música">🎵</button>
+    <button class="nav-btn" onclick="irA('sec-cartas')" title="Carta">💌</button>
+    <button class="nav-btn" onclick="irA('sec-final')" title="Final">🥑</button>
   </div>
 
   <script>
-    // --- TU CARTA HERMOSA ---
+    // --- TEXTO DE LA CARTA ---
     const cartaAmor = "Amor,<br>¿Recuerdas cuando te dije:<br>“A veces las cosas no se anuncian,<br>simplemente empiezan a pasar.<br>Y sin darme cuenta,<br>fuiste ocupando un lugar<br>que no tenía nombre<br>hasta que apareciste tú.”?<br><br>Hoy vuelvo a esas palabras y me doy cuenta de que nunca fueron tan reales como ahora. Porque lo nuestro no empezó con fuegos artificiales ni con promesas exageradas… empezó despacio, bonito, sincero. Empezó con miradas que duraban un poquito más, con conversaciones que no queríamos que terminaran, con esa sensación de sentirme en casa cuando estaba contigo.<br><br>Y también te dije un día:<br>“Y si hoy te digo todo esto, es porque me siento en paz, tranquilo, y seguro de que eres tú.”<br><br>Y sigo sintiendo exactamente lo mismo. Paz cuando estoy a tu lado. Tranquilidad cuando tomo tu mano. Seguridad cuando pienso en el futuro y te veo ahí, caminando conmigo. No es solo emoción… es certeza. Es saber que lo que siento tiene raíces profundas.<br><br>Y cómo olvidar ese 18 de diciembre… el día que estaba más nervioso que nunca. El día en que el corazón me latía tan fuerte que pensé que lo ibas a escuchar. Ese momento en el que te dije:<br>“Marisol, llegó el día, quizá uno de los más esperados en muchísimo tiempo.<br>La verdad es que el deseo más grande de mi corazón ahora es que puedas caminar conmigo en lo que viene.<br>Por eso hoy, con todo lo que siento, te digo que te quiero como mi enamorada y te invito a estar conmigo.”<br><br>Ese día no solo te pedí que fueras mi enamorada… ese día te entregué una parte muy sincera de mí. Y desde entonces, cada día contigo ha sido una confirmación de que tomé la mejor decisión.<br><br>Hoy, 14 de febrero, no quiero decirte algo nuevo. Quiero recordarte lo que ya sabes, pero que nunca me cansaré de repetir: te amo con calma, con intención, con orgullo. Amo tu sonrisa, tu forma de mirar, tu manera de abrazar. Amo lo que somos cuando estamos juntos.<br><br>Gracias por caminar conmigo. Gracias por elegirme. Gracias por ser tú.<br>Si volviera a ese 18 de diciembre, con los mismos nervios y el mismo corazón acelerado… volvería a elegirte mil veces más.<br><br>Con todo mi amor,<br>Siempre tuyo. Tu pollito Jesús.";
 
-    // --- LÓGICA DEL PROGRAMA ---
     let i = 0;
     let escribiendo = false;
 
-    function iniciarExperiencia() {
-      // Intentar reproducir música
-      const audio = document.getElementById("musica");
-      audio.volume = 0.5;
-      audio.play().catch(function(error) {
-        console.log("Audio bloqueado: " + error);
-        alert("¡Hola! Si no escuchas la música, dale clic a la nota musical 🎵 arriba a la derecha.");
-      });
+    // --- SISTEMA ANTI-RUIDO ---
+    // Detecta cuando algo (video o audio) se reproduce y pausa lo demás
+    const allMedia = document.querySelectorAll('.media-player');
 
-      // Ir a la siguiente sección
+    allMedia.forEach(media => {
+      media.addEventListener('play', () => {
+        allMedia.forEach(otherMedia => {
+          if (otherMedia !== media) {
+            otherMedia.pause();
+          }
+        });
+      });
+    });
+
+    // --- NAVEGACIÓN ---
+    function iniciarExperiencia() {
       irA('sec-galeria');
-      // Mostrar menú
       document.getElementById('menu').style.display = 'flex';
     }
 
-    function toggleMusic() {
-      const audio = document.getElementById("musica");
-      if (audio.paused) audio.play();
-      else audio.pause();
-    }
-
     function irA(idSeccion) {
+      // Pausar todo al cambiar de sección
+      allMedia.forEach(m => m.pause());
+
       document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
       document.getElementById(idSeccion).classList.add('active');
       window.scrollTo(0, 0);
 
+      // Efecto Carta
       if(idSeccion === 'sec-cartas') {
         if(!escribiendo) {
            document.getElementById("texto-maquina").innerHTML = "";
@@ -278,8 +300,7 @@
           document.getElementById("texto-maquina").innerHTML += cartaAmor.charAt(i);
           i++;
         }
-        // He ajustado la velocidad a 30ms para que no sea tan lento leer todo el texto
-        setTimeout(typeWriter, 30); 
+        setTimeout(typeWriter, 30);
       }
     }
   </script>
